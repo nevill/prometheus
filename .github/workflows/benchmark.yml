@@ -1,0 +1,17 @@
+on: issue_comment
+name: Benchmark
+jobs:
+  commentMonitor:
+    runs-on: ubuntu-latest
+    steps:
+    - name: commentMonitor
+      uses: docker://prombench/comment-monitor:latest
+      env:
+        COMMENT_TEMPLATE: 'The benchmark has started.'
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: '"^/funcbench ?(?P<BRANCH>[^ B\.]+)? ?(?P<REGEX>\.|Bench.*|[^ ]+)? ?(?P<RACE>-no-race)?.*$"'
+    - name: benchmark
+      uses: docker://nevill/funcbench:latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
