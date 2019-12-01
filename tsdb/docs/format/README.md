@@ -4,3 +4,4 @@
 * [Chunks](chunks.md)
 * [Tombstones](tombstones.md)
 * [Wal](wal.md)
+* benchmark *new*
